@@ -8,6 +8,7 @@ Cineasts.net
 -  movies, actors, role, ...
 
 Tasks:
+
 -  setup spring data graph environment for embedded (and remote)
 -  setup for war deployment
 -  pen & paper UI design
@@ -18,6 +19,7 @@ Tasks:
 -  create ui, controller, servcies for rating, recommendations
 
 optional extensions:
+
 -  link with imdb, themoviedb, wikipedia
 -  integrate other datasets -   social networks, soundtracks, dvd's / books (amazon-affiliate)
 -  create ui, controller, servcies for adding movies, cast, etc.
