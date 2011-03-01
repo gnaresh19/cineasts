@@ -1,0 +1,10 @@
+<html>
+<body>
+
+	<h3>Movie keyword search</h3>
+#foreach ($movie in $movies)
+	$movie <br>
+#end
+
+</body>
+</html>
