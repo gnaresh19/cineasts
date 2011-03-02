@@ -19,7 +19,7 @@ import com.neotechnology.cineasts.domain.Movie;
 public class MovieController {
 
 	@RequestMapping(value = "{id}")
-    public ModelAndView getMovieById(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,@PathVariable Long id) throws IOException {
+    public ModelAndView getMovieById(@PathVariable Long id) throws IOException {
 		return new ModelAndView("movie","movie",new Movie());
 	}
     

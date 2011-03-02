@@ -18,7 +18,8 @@ import com.neotechnology.cineasts.domain.Actor;
 public class ActorController {
 
     @RequestMapping("{id}")
-    public ModelAndView getActor(@PathVariable Long id,ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView getActor(@PathVariable Long id,ModelMap modelMap, 
+    		HttpServletRequest request, HttpServletResponse response) throws IOException {
     	return new ModelAndView("actor","actor",new Actor());
     }
 }
