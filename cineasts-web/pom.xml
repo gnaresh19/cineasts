@@ -12,6 +12,7 @@
 		<aspectj.version>1.6.11.M2</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <datastore-graph.version>1.0.0.M3</datastore-graph.version>
 	<spring-security.version>3.0.5.RELEASE</spring-security.version>
     </properties>
 	<repositories>
@@ -400,6 +401,14 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring-security.version}</version>
         </dependency>
+
+        <!-- Spring data graph / neo4j related deps -->
+        <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-neo4j</artifactId>
+          <version>${datastore-graph.version}</version>
+        </dependency>
+
     </dependencies>
 	<build>
 		<plugins>
@@ -452,6 +461,10 @@
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
                             <artifactId>spring-aspects</artifactId>
+                        </aspectLibrary>
+                        <aspectLibrary>
+                            <groupId>org.springframework.data</groupId>
+                            <artifactId>spring-data-neo4j</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
                     <source>1.6</source>
