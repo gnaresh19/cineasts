@@ -15,7 +15,6 @@ public class PopulateController {
     SpringDataGraphCineastsService repository;
 
     @RequestMapping("/populate")
-    @Transactional
     public ModelAndView populate() {
         try {
             repository.populateWithSomeTestData();

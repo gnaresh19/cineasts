@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.graph.neo4j.finder.FinderFactory;
 import org.springframework.data.graph.neo4j.support.GraphDatabaseContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
@@ -17,6 +18,7 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
     @Autowired
     private GraphDatabaseContext graphDatabaseContext;
 
+    @Transactional
     public void populateWithSomeTestData() {
         System.out.println("==== Populating ====");
         if (!graphDatabaseContext.transactionIsRunning()) {
