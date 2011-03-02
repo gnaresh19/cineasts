@@ -6,13 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.neotechnology.cineasts.repository.SDGRepository;
+import com.neotechnology.cineasts.service.SpringDataGraphCineastsService;
 
 @Controller
 public class PopulateController {
 
     @Autowired
-    SDGRepository repository;
+    SpringDataGraphCineastsService repository;
 
     @RequestMapping("/populate")
     @Transactional

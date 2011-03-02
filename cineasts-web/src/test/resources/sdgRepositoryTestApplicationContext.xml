@@ -24,6 +24,6 @@
         <constructor-arg index="0" value="target/neo4j-data"/>
     </bean>
     
-    <bean class="com.neotechnology.cineasts.repository.SDGRepository" />
+    <bean class="com.neotechnology.cineasts.service.SpringDataGraphCineastsService" />
     
 </beans>

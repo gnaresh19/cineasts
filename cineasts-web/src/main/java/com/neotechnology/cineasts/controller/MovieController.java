@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.neotechnology.cineasts.domain.Movie;
-import com.neotechnology.cineasts.repository.Repository;
+import com.neotechnology.cineasts.service.CineastsService;
 
 @RequestMapping(value = "/movie/**")
 @Controller
 public class MovieController {
 
     @Autowired
-    Repository repository;
+    CineastsService repository;
 
 	@RequestMapping(value = "{id}")
     public ModelAndView getMovieById(@PathVariable String id) throws IOException {

@@ -1,15 +1,15 @@
-package com.neotechnology.cineasts.repository;
+package com.neotechnology.cineasts.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.graph.neo4j.finder.FinderFactory;
 import org.springframework.data.graph.neo4j.support.GraphDatabaseContext;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
 
-@Repository
-public class SDGRepository implements com.neotechnology.cineasts.repository.Repository {
+@Component
+public class SpringDataGraphCineastsService implements com.neotechnology.cineasts.service.CineastsService {
 
     @Autowired
     private FinderFactory finderFactory;

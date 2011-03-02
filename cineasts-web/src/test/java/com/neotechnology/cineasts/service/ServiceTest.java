@@ -1,4 +1,4 @@
-package com.neotechnology.cineasts.repository;
+package com.neotechnology.cineasts.service;
 
 import static org.junit.Assert.*;
 
@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
+import com.neotechnology.cineasts.service.SpringDataGraphCineastsService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/sdgRepositoryTestApplicationContext.xml"})
-public class RepositoryTest {
+public class ServiceTest {
     
     private static final String MOVIE_ID_1 = "1";
     private static final String ACTOR_NAME_1 = "Peter Weller";
@@ -23,7 +24,7 @@ public class RepositoryTest {
     private static final String MOVIE_NAME_1 = "Robocop";
     
     @Autowired
-    SDGRepository repository;
+    SpringDataGraphCineastsService repository;
 
     @Test
     @Transactional

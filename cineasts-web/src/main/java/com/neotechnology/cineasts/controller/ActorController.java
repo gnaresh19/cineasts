@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.neotechnology.cineasts.domain.Actor;
-import com.neotechnology.cineasts.repository.Repository;
+import com.neotechnology.cineasts.service.CineastsService;
 
 @RequestMapping("/actor/**")
 @Controller
 public class ActorController {
     
     @Autowired
-    Repository repository;
+    CineastsService repository;
 
     @RequestMapping("{id}")
     public ModelAndView getActor(@PathVariable String id,ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
