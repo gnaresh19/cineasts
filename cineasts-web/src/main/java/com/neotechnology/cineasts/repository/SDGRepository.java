@@ -25,6 +25,9 @@ public class SDGRepository implements com.neotechnology.cineasts.repository.Repo
         new Actor("1", "Peter Weller");
         new Actor("2", "Ronny Cox");
         new Actor("3", "Kurtwood Smith");
+        
+        new Movie("10", "Robocop");
+        new Movie("11", "Planet Terror");
     }
     
     @Override
