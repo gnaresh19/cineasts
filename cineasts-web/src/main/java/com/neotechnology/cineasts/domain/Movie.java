@@ -4,9 +4,10 @@ import org.springframework.data.annotation.Indexed;
 import org.springframework.data.graph.annotation.NodeEntity;
 
 @NodeEntity
+//@Indexed(indexName="movie")
 public class Movie {
 
-    @Indexed
+    @Indexed(indexName="movie_id")
     private String id;
     
     private String title;

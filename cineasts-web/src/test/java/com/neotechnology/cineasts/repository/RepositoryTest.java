@@ -18,7 +18,7 @@ public class RepositoryTest {
     
     private static final String MOVIE_ID_1 = "1";
     private static final String ACTOR_NAME_1 = "Peter Weller";
-    private static final String ACTOR_ID_1 = MOVIE_ID_1;
+    private static final String ACTOR_ID_1 = "1";
     private static final String NONEXISTENT_ID = "nonexistent";
     private static final String MOVIE_NAME_1 = "Robocop";
     
@@ -59,5 +59,15 @@ public class RepositoryTest {
     public void testFindMovieByNonexistentId() {
         Movie retrievedMovie = repository.findMovieById(NONEXISTENT_ID);
         assertNull(retrievedMovie);
+    }
+    
+    @Test
+    @Transactional
+    public void testIndexSeparationBetweenMoviesAndActors() {
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
+        Actor actor = new Actor(MOVIE_ID_1, ACTOR_NAME_1);
+        Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
+        assertNotNull(retrievedMovie);
+        assertEquals(MOVIE_ID_1, retrievedMovie.getId());
     }
 }

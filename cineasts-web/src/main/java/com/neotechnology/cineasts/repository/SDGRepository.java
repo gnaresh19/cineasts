@@ -26,18 +26,18 @@ public class SDGRepository implements com.neotechnology.cineasts.repository.Repo
         new Actor("2", "Ronny Cox");
         new Actor("3", "Kurtwood Smith");
         
-        new Movie("10", "Robocop");
-        new Movie("11", "Planet Terror");
+        new Movie("1", "Robocop");
+        new Movie("2", "Planet Terror");
     }
     
     @Override
     public Actor findActorById(String id) {
-        return finderFactory.createNodeEntityFinder( Actor.class ).findByPropertyValue(null, "id", id);
+        return finderFactory.createNodeEntityFinder( Actor.class ).findByPropertyValue("actor_id", "id", id);
     }
 
     @Override
     public Movie findMovieById(String id) {
-        return finderFactory.createNodeEntityFinder( Movie.class ).findByPropertyValue(null, "id", id);
+        return finderFactory.createNodeEntityFinder( Movie.class ).findByPropertyValue("movie_id", "id", id);
     }
     
     @Override
