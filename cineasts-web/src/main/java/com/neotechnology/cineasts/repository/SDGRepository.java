@@ -22,19 +22,19 @@ public class SDGRepository implements com.neotechnology.cineasts.repository.Repo
         if (!graphDatabaseContext.transactionIsRunning()) {
             throw new RuntimeException("No transaction running");
         }
-        new Actor();
-        new Actor();
-        new Actor();
+        new Actor("1", "Peter Weller");
+        new Actor("2", "Ronny Cox");
+        new Actor("3", "Kurtwood Smith");
     }
     
     @Override
-    public Actor findActorById(long id) {
-        return finderFactory.createNodeEntityFinder( Actor.class ).findById(id);
+    public Actor findActorById(String id) {
+        return finderFactory.createNodeEntityFinder( Actor.class ).findByPropertyValue(null, "id", id);
     }
 
     @Override
-    public Movie findMovieById(long id) {
-        return finderFactory.createNodeEntityFinder( Movie.class ).findById(id);
+    public Movie findMovieById(String id) {
+        return finderFactory.createNodeEntityFinder( Movie.class ).findByPropertyValue(null, "id", id);
     }
     
     @Override

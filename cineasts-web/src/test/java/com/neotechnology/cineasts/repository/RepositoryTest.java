@@ -16,7 +16,11 @@ import com.neotechnology.cineasts.domain.Movie;
 @ContextConfiguration({"/sdgRepositoryTestApplicationContext.xml"})
 public class RepositoryTest {
     
-    private static final int NONEXISTENT_ID = 1000;
+    private static final String MOVIE_ID_1 = "1";
+    private static final String ACTOR_NAME_1 = "Peter Weller";
+    private static final String ACTOR_ID_1 = MOVIE_ID_1;
+    private static final String NONEXISTENT_ID = "nonexistent";
+    private static final String MOVIE_NAME_1 = "Robocop";
     
     @Autowired
     SDGRepository repository;
@@ -30,8 +34,8 @@ public class RepositoryTest {
     @Test
     @Transactional
     public void testFindActorById() {
-        Actor actor = new Actor();
-        Actor retrievedActor = repository.findActorById(actor.getNodeId());
+        Actor actor = new Actor(ACTOR_ID_1, ACTOR_NAME_1);
+        Actor retrievedActor = repository.findActorById(ACTOR_ID_1);
         assertNotNull(retrievedActor);
     }
 
@@ -45,8 +49,8 @@ public class RepositoryTest {
     @Test
     @Transactional
     public void testFindMovieById() {
-        Movie movie = new Movie();
-        Movie retrievedMovie = repository.findMovieById(movie.getNodeId());
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
+        Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
         assertNotNull(retrievedMovie);
     }
 

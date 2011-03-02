@@ -23,8 +23,14 @@ public class ActorController {
     Repository repository;
 
     @RequestMapping("{id}")
-    public ModelAndView getActor(@PathVariable Long id,ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView getActor(@PathVariable String id,ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
         Actor actor = repository.findActorById(id);
         return new ModelAndView("actor","actor",actor);
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
