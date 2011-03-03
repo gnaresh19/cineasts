@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neotechnology.cineasts.domain.Account;
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
+import com.neotechnology.cineasts.domain.Rating;
 
 @Component
 public class SpringDataGraphCineastsService implements com.neotechnology.cineasts.service.CineastsService {
@@ -30,8 +31,10 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
         new Actor("3", "Kurtwood Smith");
         
         new Movie("1", "Robocop");
-        new Movie("2", "Planet Terror");
-        
+        Movie movie = new Movie("2", "Planet Terror");
+        Rating rating = new Rating("Good movie", 10);
+        rating.attach();
+        movie.addRating(rating);
         new Account("johanr", "johan", "johan.rask@jayway.com");
     }
 

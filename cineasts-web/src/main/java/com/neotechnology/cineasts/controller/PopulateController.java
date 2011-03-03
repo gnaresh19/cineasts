@@ -15,13 +15,9 @@ public class PopulateController {
     SpringDataGraphCineastsService repository;
 
     @RequestMapping("/populate")
-    public ModelAndView populate() {
-        try {
-            repository.populateWithSomeTestData();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ModelAndView("actor", "actor", null);
+    public String populate() {
+    	repository.populateWithSomeTestData();
+
+        return "index";
     }
 }
