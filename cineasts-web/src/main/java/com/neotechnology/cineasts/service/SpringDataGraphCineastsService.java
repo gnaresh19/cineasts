@@ -49,6 +49,12 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
 	}
     
     @Override
+    public void save(Movie movie) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
     public Actor findActorById(String id) {
         return finderFactory.createNodeEntityFinder( Actor.class ).findByPropertyValue("actor_id", "id", id);
     }
