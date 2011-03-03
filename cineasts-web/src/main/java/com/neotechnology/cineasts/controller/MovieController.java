@@ -1,6 +1,7 @@
 package com.neotechnology.cineasts.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,18 +26,22 @@ public class MovieController {
 
 	@RequestMapping(value = "{id}")
     public ModelAndView getMovieById(@PathVariable String id) throws IOException {
-	    try {
-	        return new ModelAndView("movie","movie",repository.findMovieById(id));
-	    }
-	    catch (RuntimeException e) {
-	        e.printStackTrace();
-	        throw e;
-	    }
+		return new ModelAndView("movie","movie",repository.findMovieById(id));
 	}
     
-	@RequestMapping("all/{keyword}")
-    public ModelAndView searchByKeyword(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,@PathVariable String keyword) throws IOException { 
-    	return new ModelAndView("movies","movies",Arrays.asList(new Movie[]{new Movie(),new Movie(),new Movie()}));
+//	@RequestMapping("all/{keyword}")
+//    public ModelAndView searchByKeyword(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,@PathVariable String keyword) throws IOException { 
+//
+//		return new ModelAndView("movies","movies",Arrays.asList(new Movie[]{new Movie(),new Movie()}));
+//	}
+	
+	@RequestMapping("list")
+	public ModelAndView listMovies() {
+		ArrayList<Movie> movies = new ArrayList<Movie>();
+		for(Movie movie : repository.findAllMovies()) {
+			movies.add(movie);
+		}
+		return new ModelAndView("movies","movies",movies);
 	}
 
 }

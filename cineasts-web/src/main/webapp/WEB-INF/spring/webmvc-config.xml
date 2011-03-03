@@ -46,13 +46,14 @@
 	<!-- This bean resolves specific types of exceptions to corresponding logical - view names for error views. 
 	     The default behaviour of DispatcherServlet - is to propagate all exceptions to the servlet container: 
 	     this will happen - here with all other types of exceptions. -->
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:defaultErrorView="uncaughtException">
+	<bean class="com.neotechnology.cineasts.controller.ExceptionResolver" p:defaultErrorView="uncaughtException">
 		<property name="exceptionMappings">
 			<props>
 				<prop key=".DataAccessException">dataAccessFailure</prop>
 				<prop key=".NoSuchRequestHandlingMethodException">resourceNotFound</prop>
 				<prop key=".TypeMismatchException">resourceNotFound</prop>
 				<prop key=".MissingServletRequestParameterException">resourceNotFound</prop>
+				<prop key=".AuthenticationException">account.login</prop>
 			</props>
 		</property>
 	</bean>
@@ -64,7 +65,7 @@
   <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" id="velocityViewResolver">
     <property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityView"/>
     <property name="prefix" value=""/>
-    <property name="suffix" value=".vm"/>
+    <property name="suffix" value=".vm.html"/>
   </bean>
 
  <bean class="org.springframework.web.servlet.view.velocity.VelocityConfigurer" id="velocityConfigurer">

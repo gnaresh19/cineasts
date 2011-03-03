@@ -6,6 +6,7 @@ import org.springframework.data.graph.neo4j.support.GraphDatabaseContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neotechnology.cineasts.domain.Account;
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
 
@@ -30,7 +31,19 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
         
         new Movie("1", "Robocop");
         new Movie("2", "Planet Terror");
+        
+        new Account("johanr", "johan", "johan.rask@jayway.com");
     }
+
+    /**
+     * Once an Account has been created it can simly be attached to the graph
+     * with this method.
+     */
+    @Transactional
+	@Override
+	public void save(Account unAttachedInstance) {
+    	unAttachedInstance.attach();
+	}
     
     @Override
     public Actor findActorById(String id) {
@@ -43,7 +56,23 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
     }
     
     @Override
+    public Iterable<Movie> findAllMovies() {
+        return finderFactory.createNodeEntityFinder( Movie.class ).findAll();        
+    }
+    
+    @Override
     public Iterable<Actor> findAllActors() {
         return finderFactory.createNodeEntityFinder( Actor.class ).findAll();        
     }
+
+	@Override
+	public Account findAccountByUsername(String username) {
+		return finderFactory.createNodeEntityFinder( Account.class ).findByPropertyValue("username", "username", username);
+	}
+
+	@Override
+    public Iterable<Account> findAllAccounts() {
+        return finderFactory.createNodeEntityFinder( Account.class ).findAll();        
+    }
+
 }

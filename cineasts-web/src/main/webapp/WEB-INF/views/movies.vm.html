@@ -1,0 +1,10 @@
+<html>
+<body>
+
+	<h3>Movie list</h3>
+#foreach ($movie in $movies)
+	$movie [ <a href="/cineasts-web/movie/$movie.getId()">View</a> ]<br>
+#end
+
+</body>
+</html>

@@ -18,6 +18,10 @@ public class WebUtils {
 		return getSession().getAttribute(key);
 	}
 	
+	public static void setSessionAttr(String key,Object value) {
+		getSession().setAttribute(key,value);
+	}
+	
 	public static String getCurrentUser() {
 		return auth().getName();
 	}

@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neotechnology.cineasts.domain.Account;
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
 import com.neotechnology.cineasts.service.SpringDataGraphCineastsService;
@@ -22,6 +23,8 @@ public class ServiceTest {
     private static final String ACTOR_ID_1 = "1";
     private static final String NONEXISTENT_ID = "nonexistent";
     private static final String MOVIE_NAME_1 = "Robocop";
+    private static final String ACCOUNT_USERNAME = "johan";
+    
     
     @Autowired
     SpringDataGraphCineastsService repository;
@@ -60,6 +63,21 @@ public class ServiceTest {
     public void testFindMovieByNonexistentId() {
         Movie retrievedMovie = repository.findMovieById(NONEXISTENT_ID);
         assertNull(retrievedMovie);
+    }
+    
+    @Test
+    @Transactional
+    public void testFindAccountByUsername() {
+        Account account = new Account(ACCOUNT_USERNAME, "pass","email");
+        Account retrievedAccount = repository.findAccountByUsername(ACCOUNT_USERNAME);
+        assertNotNull(retrievedAccount);
+    }
+    
+    @Test
+    @Transactional
+    public void testFindAccountByNonexistentUsername() {
+    	Account retrievedAccount = repository.findAccountByUsername(ACCOUNT_USERNAME);
+        assertNull(retrievedAccount);
     }
     
     @Test
