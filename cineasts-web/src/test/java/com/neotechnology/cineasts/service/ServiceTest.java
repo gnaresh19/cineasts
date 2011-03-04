@@ -56,15 +56,9 @@ public class ServiceTest {
     public void testFindMovieById() {
        
     	Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
-    	Rating rating = new Rating("comment",1);
-        rating.attach();
-        movie.addRating(rating);
+    
         Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
-        int cnt = 0;
-        for(Rating r : retrievedMovie.getRatings()) {
-        	cnt++;
-        }
-        assertEquals(1, cnt);
+    
         assertNotNull(retrievedMovie);
     }
 
@@ -75,7 +69,7 @@ public class ServiceTest {
         assertNull(retrievedMovie);
     }
     
-  // @Test
+   @Test
     @Transactional
     public void testFindAccountByUsername() {
         Account account = new Account(ACCOUNT_USERNAME, "pass","email");
@@ -91,7 +85,7 @@ public class ServiceTest {
         assertNull(retrievedAccount);
     }
     
-    //@Test
+    @Test
     @Transactional
     public void testIndexSeparationBetweenMoviesAndActors() {
         Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
