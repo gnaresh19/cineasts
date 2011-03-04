@@ -1,8 +1,19 @@
 <html>
 <body>
 
-	<h3>User home page</h3>
-	User: $account
+	<h3> Your home page</h3>
+	Username: $account.getUsername()<br>
+	Password: $account.getPassword()<br>
+	Email: $account.getEmail()<br><br>
+	
+	<h5>Your Movie Ratings</h5>
+	<table>
+	<tr><td>Movie</td><td>Rating</td><td>Comment</td></tr>
+	#foreach ($rating in $account.getRatings())
+	<tr><td>[$rating.getMovie().getTitle()]</td><td>[$rating.getRating()]</td><td>$rating.getComment()</td></tr>
+	#end
+	</table>
+	
 </body>
 
 #include( "footer.html" )

@@ -41,6 +41,25 @@ public class Movie{
     public String getId() {
         return id;
     }
+    
+    public float averageRating() {
+    	float total = 0;
+    	float nrOfRatings = 0;
+    	for(Rating rating: ratings) {
+    		total += rating.getRating();
+    		nrOfRatings++;
+    	}
+    	
+    	return total / nrOfRatings;
+    }
+    
+    public int ratingCount() {
+    	int nrOfRatings = 0;
+    	for(Rating rating: ratings) {
+    		nrOfRatings++;
+    	}
+    	return nrOfRatings;
+    }
 
     @Override
 	public String toString() {

@@ -59,6 +59,7 @@ public class Account {
 	
 	/**
 	 * Rates the specified movie by this user.
+	 * TODO - A user should only be able to rate the same movie once?
 	 */
 	@Transactional
     public void rate(Movie movie, String comment, int rating) {	

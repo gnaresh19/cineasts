@@ -38,7 +38,13 @@ public class MovieController {
      */
 	@RequestMapping(value = "{id}")
     public ModelAndView getMovieById(@PathVariable String id) throws IOException {
-		return new ModelAndView("movie","movie",repository.findMovieById(id));
+		
+		Movie movie = repository.findMovieById(id);
+		if(movie == null) {
+			// 404?
+			throw new RuntimeException("NO_SUCH_MOVIE:" + id);
+		}
+		return new ModelAndView("movie","movie",movie);
 	}
     
 	/**

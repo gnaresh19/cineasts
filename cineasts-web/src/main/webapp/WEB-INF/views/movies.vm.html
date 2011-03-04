@@ -2,9 +2,12 @@
 <body>
 
 	<h3>Movie list</h3>
+	<table>
+	<tr><td>Movie</td><td>Rating</td><td>Users</td></tr>
 #foreach ($movie in $movies)
-	$movie [ <a href="/cineasts-web/movie/$movie.getId()">View</a> ]<br>
+	 <tr><td> <a href="/cineasts-web/movie/$movie.getId()">$movie.getTitle()</a></td><td> $movie.averageRating()</td><td>$movie.ratingCount()</td></tr>
 #end
-
+</table>
+#include( "footer.html" )
 </body>
 </html>

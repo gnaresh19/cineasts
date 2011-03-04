@@ -1,10 +1,16 @@
 <html>
 <body>
 	<h3>Movie description</h3>
-	Name: $movie.getTitle()<br><br>
+	Name: $movie.getTitle()<br>
+	Rating: $movie.averageRating()<br><br>
 
 	<form action="/cineasts-web/movie/rate" method="post">
-		Rating: <input type="text" name="rating"/><br>
+		Rating:<input type="radio" name="rating" value="1">(1)
+		<input type="radio" name="rating" value="2">(2)
+		<input type="radio" name="rating" value="3" checked="checked">(3)
+		<input type="radio" name="rating" value="4">(4)
+		<input type="radio" name="rating" value="5">(5)
+		<br>
 		Comment: <textarea name="comment" rows="2" cols="20">Your comments here...</textarea><br>
 		<input type="hidden" name="id" value="$movie.getId()">
 		<input type="submit"/>
@@ -16,5 +22,7 @@
 	<tr><td>[$rating.getAccount().getUsername()]</td><td>[$rating.getRating()]</td><td>$rating.getComment()</td></tr>
 	#end
 	</table>
+	
+	#include( "footer.html" )
 </body>
 </html>
