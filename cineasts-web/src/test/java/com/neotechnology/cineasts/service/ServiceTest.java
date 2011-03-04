@@ -94,4 +94,24 @@ public class ServiceTest {
         assertNotNull(retrievedMovie);
         assertEquals(MOVIE_ID_1, retrievedMovie.getId());
     }
+    
+    @Test
+    @Transactional
+    public void testRatingRelationshipAdded() {
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
+        Account account  = new Account(ACCOUNT_USERNAME, "johan", "johan.rask@jayway.com");
+        account.attach();
+        account.rate(movie, "Bad movie!", 1);
+        
+        // Verify that you can find the account on both entities
+        int cnt = 0;
+        for(Rating r: repository.findAccountByUsername(ACCOUNT_USERNAME).getRatings()) {
+        	cnt++;
+        }
+        assertEquals(1,cnt);
+        for(Rating r: repository.findMovieById(MOVIE_ID_1).getRatings()) {
+        	cnt++;
+        }
+        assertEquals(2,cnt);
+    }
 }

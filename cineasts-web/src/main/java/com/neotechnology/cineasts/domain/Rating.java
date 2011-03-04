@@ -1,9 +1,17 @@
 package com.neotechnology.cineasts.domain;
 
-import org.springframework.data.graph.annotation.NodeEntity;
+import org.springframework.data.graph.annotation.EndNode;
+import org.springframework.data.graph.annotation.RelationshipEntity;
+import org.springframework.data.graph.annotation.StartNode;
 
-@NodeEntity(autoAttach = false)
+@RelationshipEntity
 public class Rating {
+	
+	@StartNode
+	Account account;
+	
+	@EndNode
+	Movie movie;
 	
 	private String comment;
 	private int rating;
@@ -30,5 +38,12 @@ public class Rating {
 		this.rating = rating;
 	}
 	
+	public Account getAccount() {
+		return account;
+	}
+	
+	public Movie getMovie() {
+		return movie;
+	}
 	
 }

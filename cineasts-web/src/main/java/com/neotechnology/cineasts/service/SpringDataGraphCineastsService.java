@@ -10,6 +10,7 @@ import com.neotechnology.cineasts.domain.Account;
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
 import com.neotechnology.cineasts.domain.Rating;
+import com.neotechnology.cineasts.util.AuthenticationUtils;
 
 @Component
 public class SpringDataGraphCineastsService implements com.neotechnology.cineasts.service.CineastsService {
@@ -32,10 +33,14 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
         
         new Movie("1", "Robocop");
         Movie movie = new Movie("2", "Planet Terror");
-        Rating rating = new Rating("Good movie", 10);
-        rating.attach();
-        movie.addRating(rating);
-        new Account("johanr", "johan", "johan.rask@jayway.com");
+        
+        
+        Account account  = new Account("johanr", "johan", "johan.rask@jayway.com");
+        account.attach();
+        Rating rating = account.relateTo(movie, Rating.class,"RATING");
+        rating.setComment("Ok movie if you are unable to sleep..");
+        rating.setRating(2);
+        
     }
 
     /**
@@ -48,12 +53,7 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
     	unAttachedInstance.attach();
 	}
     
-    @Override
-    public void save(Movie movie) {
-        // TODO Auto-generated method stub
-        
-    }
-
+    
     @Override
     public Actor findActorById(String id) {
         return finderFactory.createNodeEntityFinder( Actor.class ).findByPropertyValue("actor_id", "id", id);
@@ -83,5 +83,11 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
     public Iterable<Account> findAllAccounts() {
         return finderFactory.createNodeEntityFinder( Account.class ).findAll();        
     }
+
+	@Override
+	public void save(Movie movie) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

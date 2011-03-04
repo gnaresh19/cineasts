@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.neotechnology.cineasts.domain.Account;
 import com.neotechnology.cineasts.exception.AuthenticationException;
 import com.neotechnology.cineasts.service.CineastsService;
-import com.neotechnology.cineasts.util.WebUtils;
+import com.neotechnology.cineasts.util.AuthenticationUtils;
 
 /**
  * Controller for registering, viewing and updating user accounts. Login is done
@@ -95,7 +95,7 @@ public class AccountController {
 		try {
 			Account account = repository.findAccountByUsername(username);
 			verifyAccount(account,username,password);
-			WebUtils.setSessionAttr("account", account);
+			AuthenticationUtils.setSessionAttr("account", account);
 			return new ModelAndView("account.user.home", "account", account);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class AccountController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
-		WebUtils.setSessionAttr("account", null);
+		AuthenticationUtils.setSessionAttr("account", null);
 		return "index";
 	}
 	
@@ -124,7 +124,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/view")
 	public ModelAndView view() {
-		Account account = (Account) WebUtils.getSessionAttr("account");
+		Account account = (Account) AuthenticationUtils.getSessionAttr("account");
 		if (account == null) {
 			throw new AuthenticationException("NOT_LOGGED_ON");
 		}

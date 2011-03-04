@@ -1,9 +1,20 @@
 <html>
 <body>
-
 	<h3>Movie description</h3>
-	$movie
+	Name: $movie.getTitle()<br><br>
 
+	<form action="/cineasts-web/movie/rate" method="post">
+		Rating: <input type="text" name="rating"/><br>
+		Comment: <textarea name="comment" rows="2" cols="20">Your comments here...</textarea><br>
+		<input type="hidden" name="id" value="$movie.getId()">
+		<input type="submit"/>
+	</form>
 
+	<table>
+	<tr><td>User</td><td>Rating</td><td>Comment</td></tr>
+	#foreach ($rating in $movie.getRatings())
+	<tr><td>[$rating.getAccount().getUsername()]</td><td>[$rating.getRating()]</td><td>$rating.getComment()</td></tr>
+	#end
+	</table>
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.neotechnology.cineasts.domain;
 
 import org.springframework.data.annotation.Indexed;
 import org.springframework.data.graph.annotation.NodeEntity;
+import org.springframework.data.graph.annotation.RelatedToVia;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @NodeEntity(autoAttach = false)
@@ -14,6 +16,9 @@ public class Account {
 	
 	private String email;
 	
+	@RelatedToVia(type = "RATING", elementClass = Rating.class)
+    private Iterable<Rating> ratings;// = new TreeSet<Rating>();
+	
 	public Account(String username, String password, String email) {
 		super();
 		this.username = username;
@@ -21,15 +26,12 @@ public class Account {
 		this.email = email;
 	}
 	
-	/**
-	 * Used to copy an account, useful when you want to create an Account inside
-	 * @Transactional from an command object account
-	 */
-	public static Account copy(Account account) {
-		return new Account(account.getUsername(), account.getPassword(), account.getEmail());
-	}
 	
 	public Account() {}
+	
+	public Iterable<Rating> getRatings() {
+		return ratings;
+	}
 	
 	public String getEmail() {
 		return email;
@@ -54,6 +56,17 @@ public class Account {
 	public String getUsername() {
 		return username;
 	}
+	
+	/**
+	 * Rates the specified movie by this user.
+	 */
+	@Transactional
+    public void rate(Movie movie, String comment, int rating) {	
+		Rating newRating = this.relateTo(movie, Rating.class,"RATING");
+		newRating.setComment(comment);
+		newRating.setRating(rating);
+    }
+    
 	
 	/**
 	 * Simple validation

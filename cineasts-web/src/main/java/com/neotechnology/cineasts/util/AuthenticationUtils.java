@@ -7,7 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-public class WebUtils {
+import com.neotechnology.cineasts.domain.Account;
+
+public class AuthenticationUtils {
 	
 	
 	public static boolean isLoggedOn() {
@@ -22,8 +24,9 @@ public class WebUtils {
 		getSession().setAttribute(key,value);
 	}
 	
-	public static String getCurrentUser() {
-		return auth().getName();
+	public static String getCurrentUsername() {
+		Account account = (Account)getSessionAttr("account");
+		return account.getUsername();
 	}
 	
 	
