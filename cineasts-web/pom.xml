@@ -583,7 +583,7 @@
                 <version>7.2.2.v20101205</version>
                 <configuration>
                     <webAppConfig>
-                        <contextPath>/${project.name}</contextPath>
+                        <contextPath>/</contextPath>
                     </webAppConfig>
                 </configuration>
             </plugin>

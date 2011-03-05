@@ -5,7 +5,7 @@
 	<table>
 	<tr><td>Movie</td><td>Rating</td><td>Users</td></tr>
 #foreach ($movie in $movies)
-	 <tr><td> <a href="/cineasts-web/movie/$movie.getId()">$movie.getTitle()</a></td><td> $movie.averageRating()</td><td>$movie.ratingCount()</td></tr>
+	 <tr><td> <a href="/movie/$movie.id">$movie.title</a></td><td> $movie.averageRating()</td><td>$movie.ratingCount()</td></tr>
 #end
 </table>
 #include( "footer.html" )
