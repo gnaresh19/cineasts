@@ -15,9 +15,20 @@ public class TheMovieDbImportService {
     
     MovieDbApiClient client;
     MovieDbJsonMapper movieDbJsonMapper;
+    MovieDbLocalStorage localStorage;
     
-    public void importMovie(String movieId) {
-        JSONObject movieJson = client.getMovie(movieId);
+    String localStoragePath;
+    
+    public void importMovie(String movieId) {        
+        JSONObject movieJson;
+        if (localStorage.hasMovie(movieId)) {
+            movieJson = localStorage.loadMovie(movieId);
+        }
+        else {
+            movieJson = client.getMovie(movieId);
+            localStorage.storeMovie(movieId, movieJson);
+        }
+        
         Movie movie = movieDbJsonMapper.mapToMovie(movieJson);
         cineastsService.save(movie);
     }
