@@ -51,11 +51,11 @@ public class MovieDbApiClient {
                 return (JSONArray) parsedObject;
             }
             else {
-                throw new TheMovieDbException("Received data are not a JSON array");
+                throw new MovieDbException("Received data are not a JSON array");
             }       
         }
         catch (Exception e) {
-            throw new TheMovieDbException("Failed to get data from " + url + " - " + e.getMessage(), e);
+            throw new MovieDbException("Failed to get data from " + url + " - " + e.getMessage(), e);
         }
         finally {
             IOUtils.closeQuietly(inputStream);

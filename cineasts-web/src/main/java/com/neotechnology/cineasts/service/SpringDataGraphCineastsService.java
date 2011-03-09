@@ -86,8 +86,7 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
 
 	@Override
 	public void save(Movie movie) {
-		// TODO Auto-generated method stub
-		
+	    movie.attach();
 	}
 
 }

@@ -1,14 +1,14 @@
 package com.neotechnology.cineasts.moviedbimport;
 
-public class TheMovieDbException extends RuntimeException {
+public class MovieDbException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public TheMovieDbException(String message) {
+    public MovieDbException(String message) {
         super(message);
     }
     
-    public TheMovieDbException(String message, Throwable cause) {
+    public MovieDbException(String message, Throwable cause) {
         super(message, cause);
     }
 }
