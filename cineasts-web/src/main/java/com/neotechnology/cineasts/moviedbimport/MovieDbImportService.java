@@ -3,6 +3,7 @@ package com.neotechnology.cineasts.moviedbimport;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.neotechnology.cineasts.domain.Movie;
 import com.neotechnology.cineasts.service.CineastsService;
@@ -19,6 +20,7 @@ public class MovieDbImportService {
     @Autowired
     MovieDbLocalStorage localStorage;
     
+    @Transactional
     public void importMovie(String movieId) {        
         JSONArray movieJson;
         if (localStorage.hasMovie(movieId)) {
