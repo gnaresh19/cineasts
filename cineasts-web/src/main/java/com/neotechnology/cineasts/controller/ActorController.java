@@ -1,6 +1,7 @@
 package com.neotechnology.cineasts.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.neotechnology.cineasts.domain.Actor;
+import com.neotechnology.cineasts.domain.Movie;
 import com.neotechnology.cineasts.service.CineastsService;
 
 @RequestMapping("/actor/**")
@@ -32,5 +34,14 @@ public class ActorController {
             e.printStackTrace();
             throw e;
         }
+    }
+    
+    @RequestMapping("list")
+    public ModelAndView listActors() {
+        ArrayList<Actor> actors = new ArrayList<Actor>();
+        for(Actor actor : repository.findAllActors()) {
+            actors.add(actor);
+        }
+        return new ModelAndView("actors","actors",actors);
     }
 }

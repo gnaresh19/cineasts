@@ -1,0 +1,13 @@
+<html>
+<body>
+
+	<h3>Actor list</h3>
+	<table>
+	<tr><td>Actor</td></tr>
+#foreach ($actor in $actors)
+	 <tr><td> <a href="/actor/$actor.id">$actor.name</a></td></tr>
+#end
+</table>
+#include( "footer.html" )
+</body>
+</html>
