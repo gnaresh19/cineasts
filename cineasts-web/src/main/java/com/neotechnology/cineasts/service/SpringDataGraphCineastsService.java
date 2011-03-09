@@ -27,16 +27,16 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
         if (!graphDatabaseContext.transactionIsRunning()) {
             throw new RuntimeException("No transaction running");
         }
-        new Actor("1", "Peter Weller");
-        new Actor("2", "Ronny Cox");
-        new Actor("3", "Kurtwood Smith");
+        new Actor("1", "Peter Weller").persist();
+        new Actor("2", "Ronny Cox").persist();
+        new Actor("3", "Kurtwood Smith").persist();
         
-        new Movie("1", "Robocop");
-        Movie movie = new Movie("2", "Planet Terror");
+        new Movie("1", "Robocop").persist();
+        Movie movie = new Movie("2", "Planet Terror").persist();
         
         
         Account account  = new Account("johanr", "johan", "johan.rask@jayway.com");
-        account.attach();
+        account.persist();
         Rating rating = account.relateTo(movie, Rating.class,"RATING");
         rating.setComment("Ok movie if you are unable to sleep..");
         rating.setRating(2);
@@ -50,7 +50,7 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
     @Transactional
 	@Override
 	public void save(Account unAttachedInstance) {
-    	unAttachedInstance.attach();
+    	unAttachedInstance.persist();
 	}
     
     
@@ -87,11 +87,11 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
 	@Override
 	@Transactional
 	public void save(Movie movie) {
-	    movie.attach();
+	    movie.persist();
 	}
 
     @Override
     public void save(Actor person) {
-        person.attach();
+        person.persist();
     }
 }

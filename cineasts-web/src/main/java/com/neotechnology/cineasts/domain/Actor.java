@@ -4,7 +4,6 @@ import org.springframework.data.annotation.Indexed;
 import org.springframework.data.graph.annotation.NodeEntity;
 
 @NodeEntity
-//@Indexed(indexName="actor")
 public class Actor {
     
     @Indexed(indexName="actor_id")

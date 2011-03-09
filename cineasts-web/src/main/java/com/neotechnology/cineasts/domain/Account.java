@@ -6,7 +6,7 @@ import org.springframework.data.graph.annotation.RelatedToVia;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-@NodeEntity(autoAttach = false)
+@NodeEntity
 public class Account {
 
 	@Indexed(indexName = "username")

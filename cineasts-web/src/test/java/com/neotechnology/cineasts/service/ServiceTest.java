@@ -39,7 +39,7 @@ public class ServiceTest {
     @Test
     @Transactional
     public void testFindActorById() {
-        Actor actor = new Actor(ACTOR_ID_1, ACTOR_NAME_1);
+        Actor actor = new Actor(ACTOR_ID_1, ACTOR_NAME_1).persist();
         Actor retrievedActor = repository.findActorById(ACTOR_ID_1);
         assertNotNull(retrievedActor);
     }
@@ -55,7 +55,7 @@ public class ServiceTest {
     @Transactional
     public void testFindMovieById() {
        
-    	Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
+    	Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1).persist();
     
         Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
     
@@ -72,7 +72,7 @@ public class ServiceTest {
    @Test
     @Transactional
     public void testFindAccountByUsername() {
-        Account account = new Account(ACCOUNT_USERNAME, "pass","email");
+        Account account = new Account(ACCOUNT_USERNAME, "pass","email").persist();
         repository.save(account);
         Account retrievedAccount = repository.findAccountByUsername(ACCOUNT_USERNAME);
         assertNotNull(retrievedAccount);
@@ -88,8 +88,8 @@ public class ServiceTest {
     @Test
     @Transactional
     public void testIndexSeparationBetweenMoviesAndActors() {
-        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
-        Actor actor = new Actor(MOVIE_ID_1, ACTOR_NAME_1);
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1).persist();
+        Actor actor = new Actor(MOVIE_ID_1, ACTOR_NAME_1).persist();
         Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
         assertNotNull(retrievedMovie);
         assertEquals(MOVIE_ID_1, retrievedMovie.getId());
@@ -98,9 +98,8 @@ public class ServiceTest {
     @Test
     @Transactional
     public void testRatingRelationshipAdded() {
-        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1);
-        Account account  = new Account(ACCOUNT_USERNAME, "johan", "johan.rask@jayway.com");
-        account.attach();
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1).persist();
+        Account account  = new Account(ACCOUNT_USERNAME, "johan", "johan.rask@jayway.com").persist();
         account.rate(movie, "Bad movie!", 1);
         
         // Verify that you can find the account on both entities
