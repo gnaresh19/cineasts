@@ -14,4 +14,5 @@ public interface CineastsService {
     Iterable<Actor> findAllActors();
 	Iterable<Movie> findAllMovies();
 	Iterable<Account> findAllAccounts();
+    void save(Actor person);
 }

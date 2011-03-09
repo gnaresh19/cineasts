@@ -90,4 +90,8 @@ public class SpringDataGraphCineastsService implements com.neotechnology.cineast
 	    movie.attach();
 	}
 
+    @Override
+    public void save(Actor person) {
+        person.attach();
+    }
 }

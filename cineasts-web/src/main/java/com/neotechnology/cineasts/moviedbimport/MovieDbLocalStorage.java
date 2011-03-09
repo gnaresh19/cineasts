@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 
@@ -37,19 +38,54 @@ public class MovieDbLocalStorage {
 
     public JSONArray loadMovie(String movieId) {
         File storageFile = fileForMovie(movieId);
+        return (JSONArray) loadJsonValue(storageFile);
+    }
+
+    private Object loadJsonValue(File storageFile) {
+        InputStreamReader reader = null;
         try {
-            return (JSONArray) JSONValue.parseWithException(new InputStreamReader(new FileInputStream(storageFile)));
+            reader = new InputStreamReader(new FileInputStream(storageFile));
+            return JSONValue.parseWithException(reader);
         } catch (Exception e) {
-            throw new MovieDbException("Failed to load JSON from storage for movie "+movieId, e);
+            throw new MovieDbException("Failed to load JSON from storage for file "+storageFile.getPath(), e);
+        } finally {
+            IOUtils.closeQuietly(reader);
         }
     }
 
     public void storeMovie(String movieId, JSONArray movieJson) {
         File storageFile = fileForMovie(movieId);
+        storeJsonValue(movieJson, storageFile);
+    }
+
+    private void storeJsonValue(Object json, File storageFile) {
+        OutputStreamWriter writer = null;
         try {
-            JSONValue.writeJSONString(movieJson, new OutputStreamWriter(new FileOutputStream(storageFile)));
+            writer = new OutputStreamWriter(new FileOutputStream(storageFile));
+            JSONValue.writeJSONString(json, writer);
+            writer.close();
         } catch (Exception e) {
-            throw new MovieDbException("Failed to store JSON to storage for movie "+movieId, e);
+            throw new MovieDbException("Failed to store JSON to storage for file "+storageFile.getPath(), e);
+        } finally {
+            IOUtils.closeQuietly(writer);
         }
+    }
+
+    public boolean hasPerson(String personId) {
+        return fileForPerson(personId).exists();
+    }
+
+    private File fileForPerson(String personId) {
+        return new File(storagePath, String.format("person_%s.json", personId));
+    }
+
+    public JSONArray loadPerson(String personId) {
+        File storageFile = fileForPerson(personId);
+        return (JSONArray) loadJsonValue(storageFile);
+    }
+
+    public void storePerson(String personId, JSONArray personJson) {
+        File storageFile = fileForPerson(personId);
+        storeJsonValue(personJson, storageFile);
     }    
 }

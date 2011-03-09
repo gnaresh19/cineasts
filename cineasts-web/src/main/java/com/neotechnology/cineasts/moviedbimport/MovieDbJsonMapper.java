@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 
+import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
 
 @Component
@@ -16,4 +17,9 @@ public class MovieDbJsonMapper {
         return result;
     }
 
+    public Actor mapToPerson(JSONArray personJson) {
+        JSONObject json = (JSONObject) personJson.get(0);
+        Actor result = new Actor(((Long) json.get("id")).toString(), (String) json.get("name"));
+        return result;
+    }
 }

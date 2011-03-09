@@ -65,4 +65,13 @@ public class MovieDbApiClient {
     private String buildMovieUrl(String movieId) {
         return String.format("%s2.1/Movie.getInfo/en/json/%s/%s", baseUrl, apiKey, movieId);
     }
+
+    public JSONArray getPerson(String personId) {
+        String personUrl = buildPersonUrl(personId);
+        return getUrlAsJson(personUrl);
+    }
+
+    private String buildPersonUrl(String personId) {
+        return String.format("%s2.1/Person.getInfo/en/json/%s/%s", baseUrl, apiKey, personId);
+    }
 }
