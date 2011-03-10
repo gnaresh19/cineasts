@@ -59,7 +59,7 @@
         <constructor-arg index="0" value="target/themoviedb-local-storage"/>        
     </bean>
     <bean class="com.neotechnology.cineasts.moviedbimport.MovieDbApiClient">
-        <constructor-arg index="0" value="5a96005d8e28d5f2e045b02540aff52a"/><!-- The MovieDB API KEY (jens.nordahl@jayway.com) -->     
+        <constructor-arg index="0" value="926d2a79e82920b62f03b1cb57e532e6"/>     
     </bean>
     
 </beans>
