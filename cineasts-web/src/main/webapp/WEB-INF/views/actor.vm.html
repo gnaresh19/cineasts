@@ -2,12 +2,12 @@
 <body>
 
 	<h3>Actor description</h3>
-	Name: $actor.getName()
+	Name: $actor.name
 	<h4>Filmography</h4>
     <table>
     <tr><td>Movie</td><td>Role</td></tr>
-    #foreach ($participation in $actor.getParticipations())
-    <tr><td>$participation.getMovie().getTitle()</td><td>$participation.getRole()</td></tr>
+    #foreach ($participation in $actor.participations)
+    <tr><td><a href="/movie/$participation.movie.id">$participation.movie.title</a></td><td>$participation.role</td></tr>
     #end
     </table>
     

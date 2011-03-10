@@ -27,8 +27,8 @@
     <h4>Cast</h4>
     <table>
     <tr><td>Person</td><td>Role</td></tr>
-    #foreach ($participation in $movie.getParticipations())
-    <tr><td>$participation.getActor().getName()</td><td>$participation.getRole()</td></tr>
+    #foreach ($participation in $movie.participations)
+    <tr><td><a href="/actor/$participation.actor.id">$participation.actor.name</td><td>$participation.role</td></tr>
     #end
     </table>
 	
