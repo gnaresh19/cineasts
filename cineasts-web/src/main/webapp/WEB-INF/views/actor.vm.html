@@ -2,7 +2,16 @@
 <body>
 
 	<h3>Actor description</h3>
-	$actor
+	Name: $actor.getName()
+	<h4>Filmography</h4>
+    <table>
+    <tr><td>Movie</td><td>Role</td></tr>
+    #foreach ($participation in $actor.getParticipations())
+    <tr><td>$participation.getMovie().getTitle()</td><td>$participation.getRole()</td></tr>
+    #end
+    </table>
+    
+
 
 #include( "footer.html" )
 </body>

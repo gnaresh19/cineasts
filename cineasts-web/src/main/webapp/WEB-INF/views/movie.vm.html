@@ -16,12 +16,21 @@
 		<input type="submit"/>
 	</form>
 
+    <h4>Ratings</h4>
 	<table>
 	<tr><td>User</td><td>Rating</td><td>Comment</td></tr>
 	#foreach ($rating in $movie.getRatings())
 	<tr><td>[$rating.getAccount().getUsername()]</td><td>[$rating.getRating()]</td><td>$rating.getComment()</td></tr>
 	#end
 	</table>
+
+    <h4>Cast</h4>
+    <table>
+    <tr><td>Person</td><td>Role</td></tr>
+    #foreach ($participation in $movie.getParticipations())
+    <tr><td>$participation.getActor().getName()</td><td>$participation.getRole()</td></tr>
+    #end
+    </table>
 	
 	#include( "footer.html" )
 </body>
