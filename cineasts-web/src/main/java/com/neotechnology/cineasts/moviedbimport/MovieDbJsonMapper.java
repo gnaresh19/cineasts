@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
+import com.neotechnology.cineasts.domain.Role;
 
 @Component
 public class MovieDbJsonMapper {
@@ -21,5 +22,15 @@ public class MovieDbJsonMapper {
         JSONObject json = (JSONObject) personJson.get(0);
         Actor result = new Actor(((Long) json.get("id")).toString(), (String) json.get("name"));
         return result;
+    }
+
+    public Role mapToRole(String roleString) {
+        if (roleString.equals("Actor")) {
+            return Role.ACTOR;
+        }
+        if (roleString.equals("Director")) {
+            return Role.DIRECTOR;
+        }
+        return null;
     }
 }

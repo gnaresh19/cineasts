@@ -2,17 +2,22 @@ package com.neotechnology.cineasts.moviedbimport;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
+import com.neotechnology.cineasts.domain.Role;
 import com.neotechnology.cineasts.service.CineastsService;
 import static com.neotechnology.cineasts.util.JXPathUtils.*;
 
 @Component
 public class MovieDbImportService {
+    
+    private static final Logger logger = LoggerFactory.getLogger(MovieDbImportService.class);
 
     @Autowired
     CineastsService cineastsService;    
@@ -25,6 +30,7 @@ public class MovieDbImportService {
     
     @Transactional
     public void importMovie(String movieId) {        
+        logger.debug("Importing movie "+movieId);
         JSONArray movieJson;
         if (localStorage.hasMovie(movieId)) {
             movieJson = localStorage.loadMovie(movieId);
@@ -35,8 +41,8 @@ public class MovieDbImportService {
         }
         
         Movie movie = movieDbJsonMapper.mapToMovie(movieJson);
-        importActorsForMovie(movie, movieJson);
         cineastsService.save(movie);
+        importActorsForMovie(movie, movieJson);
     }
 
     private void importActorsForMovie(Movie movie, JSONArray movieJson) {        
@@ -51,12 +57,20 @@ public class MovieDbImportService {
             if (person == null) {
                 throw new RuntimeException("Person with id "+personId+" not found");
             }
-            // TODO: Relate person to movie using role
+            
+            Role role = movieDbJsonMapper.mapToRole(personRole);
+            if (role != null) {
+                person.participateIn(movie, role);
+            }
+            else {
+                logger.info("Role '{}' from movie DB not supported for person '{}'", personRole, person.getName() );
+            }
         }
     }
 
     @Transactional
     public Actor importPerson(String personId) {        
+        logger.debug("Importing person " + personId);
         JSONArray personJson;
         if (localStorage.hasPerson(personId)) {
             personJson = localStorage.loadPerson(personId);
