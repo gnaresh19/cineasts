@@ -2,6 +2,9 @@ package com.neotechnology.cineasts.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +12,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.neotechnology.cineasts.domain.Account;
 import com.neotechnology.cineasts.domain.Actor;
 import com.neotechnology.cineasts.domain.Movie;
+import com.neotechnology.cineasts.domain.Participation;
 import com.neotechnology.cineasts.domain.Rating;
+import com.neotechnology.cineasts.domain.Role;
 import com.neotechnology.cineasts.service.SpringDataGraphCineastsService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -112,5 +118,43 @@ public class ServiceTest {
         	cnt++;
         }
         assertEquals(2,cnt);
+    }
+
+    @Test
+    @Transactional
+    public void testParticipationRelationshipAdded() {
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1).persist();
+        Actor actor = new Actor(ACTOR_ID_1, ACTOR_NAME_1).persist();
+        actor.participateIn(movie, Role.ACTOR);
+
+        Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
+        List<Participation> participations = Lists.newArrayList(retrievedMovie.getParticipations());
+        assertEquals(1, participations.size());
+        assertEquals(Role.ACTOR, participations.get(0).getRole());
+        assertEquals(ACTOR_NAME_1, participations.get(0).getActor().getName());
+
+        Actor retrievedActor = repository.findActorById(ACTOR_ID_1);
+        participations = Lists.newArrayList(retrievedMovie.getParticipations());
+        assertEquals(1, participations.size());
+        assertEquals(Role.ACTOR, participations.get(0).getRole());
+        assertEquals(MOVIE_NAME_1, participations.get(0).getMovie().getTitle());
+    }
+
+    @Ignore // Ignore for now, until we remodel the domain to support multiple roles
+    @Test
+    @Transactional
+    public void testParticipationRelationshipInMultipleRoles() {
+        Movie movie = new Movie(MOVIE_ID_1, MOVIE_NAME_1).persist();
+        Actor actor = new Actor(ACTOR_ID_1, ACTOR_NAME_1).persist();
+        actor.participateIn(movie, Role.ACTOR);
+        actor.participateIn(movie, Role.DIRECTOR);
+
+        Movie retrievedMovie = repository.findMovieById(MOVIE_ID_1);
+        List<Participation> participations = Lists.newArrayList(retrievedMovie.getParticipations());
+        assertEquals(2, participations.size());
+
+        Actor retrievedActor = repository.findActorById(ACTOR_ID_1);
+        participations = Lists.newArrayList(retrievedMovie.getParticipations());
+        assertEquals(2, participations.size());
     }
 }

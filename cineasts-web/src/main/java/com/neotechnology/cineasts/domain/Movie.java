@@ -17,10 +17,17 @@ public class Movie{
     @RelatedToVia(type = "RATING", elementClass = Rating.class,direction= Direction.INCOMING)
     private Iterable<Rating> ratings;// = new TreeSet<Rating>();
 
+    @RelatedToVia(type=Participation.RELATIONSHIP_TYPE, direction=Direction.INCOMING , elementClass=Participation.class)
+    Iterable<Participation> participations;    
+
     public Iterable<Rating> getRatings() {
 		return ratings;
 	}
     
+    public Iterable<Participation> getParticipations() {
+        return participations;
+    }
+
     public Movie() {        
     }
     
