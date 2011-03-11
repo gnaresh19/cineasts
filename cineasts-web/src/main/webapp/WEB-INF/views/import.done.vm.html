@@ -1,0 +1,15 @@
+<html>
+<body>
+
+    <h3>Import done</h3>
+    
+    <table>
+    <tr><td>Movie id</td><td>Result</td></tr>
+#foreach ($mapEntry in $importResult.entrySet())
+     <tr><td>$mapEntry.key</td><td>$mapEntry.value</td></tr>
+#end
+    </table>
+
+#include( "footer.html" )
+</body>
+</html>

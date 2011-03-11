@@ -29,7 +29,7 @@ public class MovieDbImportService {
     MovieDbLocalStorage localStorage;
     
     @Transactional
-    public void importMovie(String movieId) {        
+    public Movie importMovie(String movieId) {        
         logger.debug("Importing movie "+movieId);
         JSONArray movieJson;
         if (localStorage.hasMovie(movieId)) {
@@ -43,6 +43,7 @@ public class MovieDbImportService {
         Movie movie = movieDbJsonMapper.mapToMovie(movieJson);
         cineastsService.save(movie);
         importActorsForMovie(movie, movieJson);
+        return movie;
     }
 
     private void importActorsForMovie(Movie movie, JSONArray movieJson) {        
