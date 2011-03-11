@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.neotechnology.cineasts.domain.Movie;
 import com.neotechnology.cineasts.moviedbimport.MovieDbException;
 import com.neotechnology.cineasts.moviedbimport.MovieDbImportService;
+import com.neotechnology.cineasts.moviedbimport.MovieDbNotFoundException;
 
 @Controller
 public class ImportController {
@@ -39,6 +40,11 @@ public class ImportController {
             try {
                 Movie movie = importService.importMovie(movieId);
                 importResult.put(movieId, movie.getTitle() + " (successful)");
+            }
+            catch (MovieDbNotFoundException e) {
+                logger.info("Movie {} not found at import", movieId);
+                importResult.put(movieId, "Not found");                    
+                
             }
             catch (MovieDbException e) {
                 logger.warn("Failed to import movie {}, continuing.", movieId);
@@ -70,7 +76,12 @@ public class ImportController {
                 }
             } 
             else {
-                result.add(commaElem.trim());
+                if (commaElem.trim().length() > 0) {
+                    result.add(commaElem.trim());
+                }
+                else {
+                    throw new RuntimeException("Invalid movie id list: "+movieIds);                                        
+                }
             }
         }
         return result;
