@@ -1,5 +1,7 @@
 package com.neotechnology.cineasts.moviedbimport;
 
+import static com.neotechnology.cineasts.util.JXPathUtils.jxString;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -31,7 +33,17 @@ public class MovieDbApiClient {
 
     public JSONArray getMovie(String movieId) {
         String movieUrl = buildMovieUrl(movieId);
-        return getUrlAsJson(movieUrl);
+        JSONArray json = getUrlAsJson(movieUrl);
+        if (notFound(json)) {
+            throw new MovieDbNotFoundException("Movie not found");
+        }        
+        return json;
+    }
+    
+    // The movie db API signals movie not found by returning an array containing 
+    // the string "Nothing found."
+    private boolean notFound(JSONArray json) {
+        return jxString(json, ".[1]").equals("Nothing found."); 
     }
 
     private JSONArray getUrlAsJson(String url) {

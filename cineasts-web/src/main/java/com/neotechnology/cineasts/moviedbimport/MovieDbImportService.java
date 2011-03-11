@@ -41,18 +41,10 @@ public class MovieDbImportService {
             localStorage.storeMovie(movieId, movieJson);
         }
         
-        if (notFound(movieJson)) {
-            throw new MovieDbNotFoundException("Movie not found");
-        }
-        
         Movie movie = movieDbJsonMapper.mapToMovie(movieJson);
         cineastsService.save(movie);
         importActorsForMovie(movie, movieJson);
         return movie;
-    }
-
-    private boolean notFound(JSONArray movieJson) {
-        return jxString(movieJson, ".[1]").equals("Nothing found."); 
     }
 
     private void importActorsForMovie(Movie movie, JSONArray movieJson) {        
