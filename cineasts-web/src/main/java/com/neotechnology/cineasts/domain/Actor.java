@@ -19,6 +19,10 @@ public class Actor {
     public Actor() {        
     }
     
+    public Actor(String id) {
+        this.id = id;
+    }
+
     public Actor(String id, String name) {
         this.id = id;
         this.name = name;

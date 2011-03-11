@@ -81,4 +81,10 @@ public class Movie{
 		}
 		return sb.toString();
 	}
+
+    public void removeParticipations() {
+        for (Participation p: getParticipations()) {
+            removeRelationshipTo(p.getActor(), Participation.RELATIONSHIP_TYPE);
+        }
+    }
 }

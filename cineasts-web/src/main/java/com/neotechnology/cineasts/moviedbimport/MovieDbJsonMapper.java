@@ -11,23 +11,20 @@ import com.neotechnology.cineasts.domain.Role;
 @Component
 public class MovieDbJsonMapper {
 
-    public Movie mapToMovie(JSONArray movieJson) {
+    public void mapToMovie(JSONArray movieJson, Movie movie) {
         try {
             JSONObject json = (JSONObject) movieJson.get(0);
-            Movie result = new Movie(((Long) json.get("id")).toString());
-            result.setTitle((String) json.get("name"));
-            return result;
+            movie.setTitle((String) json.get("name"));
         }
         catch (Exception e) {
             throw new MovieDbException("Failed to map json for movie", e);
         }
     }
 
-    public Actor mapToPerson(JSONArray personJson) {
+    public void mapToPerson(JSONArray personJson, Actor person) {
         try {
             JSONObject json = (JSONObject) personJson.get(0);
-            Actor result = new Actor(((Long) json.get("id")).toString(), (String) json.get("name"));
-            return result;
+            person.setName((String) json.get("name"));
         }
         catch (Exception e) {
             throw new MovieDbException("Failed to map json for person", e);

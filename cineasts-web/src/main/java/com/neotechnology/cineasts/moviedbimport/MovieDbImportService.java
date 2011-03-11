@@ -31,8 +31,13 @@ public class MovieDbImportService {
     @Transactional
     public Movie importMovie(String movieId) {        
         logger.debug("Importing movie "+movieId);
-        JSONArray movieJson;
         
+        Movie movie = cineastsService.findMovieById(movieId);
+        if(movie == null) { // Not found: Create fresh 
+            movie = new Movie(movieId);
+        }
+        
+        JSONArray movieJson;        
         if (localStorage.hasMovie(movieId)) {
             movieJson = localStorage.loadMovie(movieId);
         }
@@ -41,13 +46,14 @@ public class MovieDbImportService {
             localStorage.storeMovie(movieId, movieJson);
         }
         
-        Movie movie = movieDbJsonMapper.mapToMovie(movieJson);
+        movieDbJsonMapper.mapToMovie(movieJson, movie);
         cineastsService.save(movie);
-        importActorsForMovie(movie, movieJson);
+        relatePersonsToMovie(movie, movieJson);
         return movie;
     }
 
-    private void importActorsForMovie(Movie movie, JSONArray movieJson) {        
+    private void relatePersonsToMovie(Movie movie, JSONArray movieJson) {        
+        movie.removeParticipations(); 
         for (JSONObject personJson: jxJSONObjectCollection(movieJson, ".[1]/cast")) {
             String personId = jxString(personJson, "id");
             String personRole = jxString(personJson, "job");
@@ -73,6 +79,11 @@ public class MovieDbImportService {
     @Transactional
     public Actor importPerson(String personId) {        
         logger.debug("Importing person " + personId);
+        Actor person = cineastsService.findActorById(personId);
+        if (person == null) { // Not found, create fresh
+            person = new Actor(personId);
+        }
+        
         JSONArray personJson;
         if (localStorage.hasPerson(personId)) {
             personJson = localStorage.loadPerson(personId);
@@ -82,7 +93,7 @@ public class MovieDbImportService {
             localStorage.storePerson(personId, personJson);
         }
         
-        Actor person = movieDbJsonMapper.mapToPerson(personJson);
+        movieDbJsonMapper.mapToPerson(personJson, person);
         cineastsService.save(person);
         return person;
     }
